@@ -71,13 +71,29 @@ A conflict resolution mechanism is however required to handle updates generated 
 % CRDT
 % - Mimic behavior of traditional data structures
 % - Designed for a distributed usage
-% - Rely usually on identifiers attached to elements
+% - Used in distributed storages and collaborative editing tools
+% - Comes in several flavors: State-based and Operation-based
 
 An approach which gains in popularity since a few years proposes to define \acfp{CRDT}.
 These data structures behave as traditional ones, like the \emph{Set} or the \emph{Sequence} data structures, but are designed for a distributed usage.
 Their specification ensures that concurrent changes are resolved deterministically and that replicas eventually converge after observing all updates.
 
+% State-based
+% - Define a monotonically increasing state
+% - Define a idempotent and commutative merge function
+% - Allow to share updates by sending own state to other replicas so they merge it
+% - No requirements for the network layer
+% - But bandwith-consuming
+
+% Operation-based
+% - Define a set of operations to update the data structure
+% - Define a partial order between operations
+% - Concurrent operations commute
+% - Allow to share updates by sending only corresponding operations
+% - But network layer has to deliver operation while complying to their partial order
+
 % Constraints on identifiers
+% - Rely usually on identifiers attached to elements
 % - Several constraints may exist on identifiers: globally unique, belonging to a dense set
 % - Implementations (literature ?) do not provide identifiers with fixed size: depend on number of nodes...
 
