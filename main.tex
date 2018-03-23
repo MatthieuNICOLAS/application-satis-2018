@@ -74,9 +74,13 @@ A conflict resolution mechanism is however required to handle updates generated 
 % - Used in distributed storages and collaborative editing tools
 % - Comes in several flavors: State-based and Operation-based
 
-An approach which gains in popularity since a few years proposes to define \acfp{CRDT}.
+An approach which gains in popularity since a few years proposes to define \acfp{CRDT}\cite{shapiro:inria-00555588}.
 These data structures behave as traditional ones, like the \emph{Set} or the \emph{Sequence} data structures, but are designed for a distributed usage.
 Their specification ensures that concurrent changes are resolved deterministically and that replicas eventually converge after observing all updates.
+Several promising ongoing works rely on this approach
+to design distributed datastores \emph{TODO: insert reference to Riak or Antidote},
+collaborative editing tools \cite{nicolas:hal-01655438}\emph{TODO: insert reference to teletype}
+and even programming languages for designing distributed application \emph{TODO: insert reference to LASP}.
 
 % State-based
 % - Define a monotonically increasing state
@@ -126,8 +130,6 @@ The goal of this PhD is to address this issue by
 %   - Which constraints on identifiers are found in the literature?
 %   - How are these constraints addressed?
 % - Can we instead provide \acp{CRDT} not relying on identifiers?
-
-\nocite{ShapiroSSS2011}
 
 \bibliographystyle{plain}
 \bibliography{ref-selected}
