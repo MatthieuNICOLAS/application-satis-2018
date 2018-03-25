@@ -58,6 +58,7 @@
 \thispagestyle{empty}
 
 % Context
+% - Shift toward the distributed paradigm
 % - Distributed system: several nodes share and edit a data structure
 % - CAP theorem: can not ensure strong consistency and availability in a partition-tolerant system
 % - Eventual consistency: sacrifize consistency to ensure availability in case of network failure
@@ -71,16 +72,17 @@ A conflict resolution mechanism is however required to handle updates generated 
 % CRDT
 % - Mimic behavior of traditional data structures
 % - Designed for a distributed usage
+% - Assure SEC
 % - Used in distributed storages and collaborative editing tools
 % - Comes in several flavors: State-based and Operation-based
 
 An approach which gains in popularity since a few years proposes to define \acfp{CRDT}\cite{shapiro:inria-00555588}.
 These data structures behave as traditional ones, like the \emph{Set} or the \emph{Sequence} data structures, but are designed for a distributed usage.
-Their specification ensures that concurrent changes are resolved deterministically and that replicas eventually converge after observing all updates.
-Several promising ongoing works rely on this approach
-to design distributed datastores \emph{TODO: insert reference to Riak or Antidote},
-collaborative editing tools \cite{nicolas:hal-01655438}\emph{TODO: insert reference to teletype}
-and even programming languages for designing distributed application \emph{TODO: insert reference to LASP}.
+Their specification ensures that concurrent changes are resolved deterministically, without any kind of agreement, and that replicas eventually converge after observing all updates,
+thus achieving \emph{Strong Eventual Consistency}.
+
+In \cite{shapiro:inria-00555588}, the author presents two designs of \acp{CRDT} :
+\emph{State-based} \acp{CRDT} and \emph{Operations-based} \acp{CRDT}.
 
 % State-based
 % - Define a monotonically increasing state
@@ -89,6 +91,15 @@ and even programming languages for designing distributed application \emph{TODO:
 % - No requirements for the network layer
 % - But bandwith-consuming
 
+\emph{State-based} \acp{CRDT} define data structures with monotonically increasing states with idempotent and commutative merge functions.
+This allows one replica to share its local updates by broadcasting its state to others.
+Upon the reception of the state of another replica, a node is able to update its own state by merging them,
+regardless of its concurrent updates.
+Thanks to the properties of the defined state and merge function, states can be missed or delivered multiple times :
+as long as the most recent state of each replica is successfully broadcast to others once, each node will converge.
+Thus, no assumptions are made on the network layer.
+However, this is achieved by broadcasting the whole state repeatedly, which may be inefficient according to the size of the data structure.
+
 % Operation-based
 % - Define a set of operations to update the data structure
 % - Define a partial order between operations
@@ -96,15 +107,24 @@ and even programming languages for designing distributed application \emph{TODO:
 % - Allow to share updates by sending only corresponding operations
 % - But network layer has to deliver operation while complying to their partial order
 
+\emph{Operations-based} \acp{CRDT} define data structures with a set of operations to perform updates
+and a partial order between these operations, usually the causal order.
+In addition, operations have to be designed such as concurrent operations commute.
+This allows to propagate local updates by broadcasting corresponding operations to other replicas.
+Operations are delivered according to the defined partial order and, upon delivery of an operation, a replica updates its state by applying the received operation.
+In comparison to \emph{State-based} \acp{CRDT}, this solution achieves better performances, especially regarding the bandwidth consumption.
+Nevertheless, it requires the network layer to keep track of the defined partial order, which may be a complex and costly task.
+
 % Constraints on identifiers
 % - Rely usually on identifiers attached to elements
 % - Several constraints may exist on identifiers: globally unique, belonging to a dense set
 % - Implementations (literature ?) do not provide identifiers with fixed size: depend on number of nodes...
 
-To achieve convergence, \acp{CRDT} proposed in the literature mostly rely on identifiers to reference updated elements.
+In both designs, to achieve convergence, \acp{CRDT} proposed in the literature mostly rely on identifiers to reference updated elements.
 To be globally unique, element identifiers often include the identifier of the node which generates them.
-But, since node identifiers grow as new nodes join the system, element identifiers have to grow proportionally.
-Furthermore, element identifiers have to comply to additional constraints according to the \ac{CRDT}, which may result in the acceleration of their growth.
+But, since node identifiers grow as new nodes join the system, element identifiers grow proportionally.
+Furthermore, element identifiers have to comply to additional constraints according to the \ac{CRDT}, for example forming a dense set.
+This usually results in an acceleration of their growth.
 
 % First, identifiers are required to be globally unique for the lifetime of the data structure.
 % For example, they may also be used to represent the order between updates.
