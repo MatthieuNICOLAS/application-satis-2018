@@ -64,9 +64,9 @@
 % - Eventual consistency: sacrifize consistency to ensure availability in case of network failure
 % - Necessity of a conflict resolution mechanism
 
-In order to serve an evergrowing number of users and provide an increasing volume of data,
-nowadays large scale systems such as datastore\cite{Antidote} or collaborative editing tools\cite{nicolas:hal-01655438} have to adopt a distributed architecture.
-However, as stated by the CAP theorem\cite{BrewerPoDC2000}, such systems can not ensure both strong consistency and high availability in all cases.
+In order to serve an ever-growing number of users and provide an increasing volume of data,
+nowadays large scale systems such as data stores\cite{Antidote} or collaborative editing tools\cite{nicolas:hal-01655438} have to adopt a distributed architecture.
+However, as stated by the CAP theorem\cite{BrewerPoDC2000}, such systems cannot ensure both strong consistency and high availability in all cases.
 As a result, the literature and companies increasingly adopt the optimistic replication model known as eventual consistency to replicate data among nodes.
 This consistency model allows replicas to temporarily diverge to be able to ensure high availability, even in case of network partition.
 Each node owning a copy of the data can edit it, before propagating the changes to others.
