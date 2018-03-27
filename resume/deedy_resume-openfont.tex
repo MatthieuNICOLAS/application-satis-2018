@@ -86,6 +86,35 @@
 
 \section{Career}
 
+\runsubsection{PhD Student}
+\descript{| UNIVERSITY OF LORRAINE, COAST TEAM}
+\location{October 2017 - Today | Nancy, France}
+\sectionsep
+
+\hfill\begin{minipage}{\dimexpr\textwidth-0.5cm}
+\descript{EFFICIENT (RE)NAMING IN CONFLICT-FREE REPLICATED DATA TYPES}
+
+\acp{CRDT} are data structures behaving as traditional ones, like the \emph{Set} or the \emph{Sequence} data structures, but designed for a distributed usage.
+They are used in order to build large scale distributed systems adopting the optimistic replication model known as eventual consistency to replicate data among nodes.
+With this model, each node owning a copy of the data can edit it without any kind of coordination with other nodes.
+They then propagate the updates to others.
+The specification of \acp{CRDT} ensures that concurrent updates are resolved deterministically and that replicas eventually converge after observing all of them.
+\\
+To achieve convergence, \acp{CRDT} proposed in the literature mostly rely on identifiers to reference updated elements.
+According to the kind of \ac{CRDT}, identifiers have to comply to several constraints (unicity, forming a dense set...).
+\\
+Because of these constraints, the identifiers size is often not bounded.
+Therefore, the size of metadata attached to each element increases with the number of updates.
+It thus exceeds more and more the size of data itself, decreasing the efficiency of the data structure over time.
+\\
+The goal of this PhD is to address this issue by
+\begin{tightemize}
+  \item Proposing more efficient specifications of identifiers according to their set of constraints,
+  \item Proposing mechanisms to rename identifiers to reduce their size.
+\end{tightemize}
+\sectionsep
+\end{minipage}
+
 \runsubsection{Research \& Development Software Engineer}
 \descript{| INRIA, COAST TEAM}
 \location{September 2014 – September 2017 | Nancy, France}
