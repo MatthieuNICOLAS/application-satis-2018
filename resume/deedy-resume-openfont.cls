@@ -48,7 +48,7 @@ Last Updated on \today
 \graphicspath{ {images/} }
 \newcommand{\namesection}[3]{
 \centering{
-\fontsize{40pt}{60pt}
+\fontsize{30pt}{45pt}
 \fontspec[Path = fonts/lato/]{Lato-Hai}\selectfont #1
 \fontspec[Path = fonts/lato/]{Lato-Lig}\selectfont #2
 } \\[5pt]

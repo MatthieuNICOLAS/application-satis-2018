@@ -44,15 +44,18 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newcommand{\specialcell}[2][l]{%
-  \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
-
 \setlength{\parindent}{4em}
 \setlength{\parskip}{1em}
 
 \documentclass[]{deedy-resume-openfont}
 
 \usepackage{ragged2e}
+\usepackage{acronym} % \ac[p], \acl[p], \acs[p], \acf[p]
+
+% Acronyms
+% --------
+\acrodef{CRDT}[CRDT]{Conflict-free Replicated Data Type}
+\acrodefplural{CRDT}[CRDTs]{Conflict-free Replicated Data Types}
 
 \begin{document}
 
@@ -90,7 +93,7 @@
 
 \hfill\begin{minipage}{\dimexpr\textwidth-0.5cm}
 \descript{PROJECT OPENPAAS::NG}
-The goal of this project is to design a  open-source entreprise social network providing a suite of
+The goal of this project is to design an open-source entreprise social network providing a suite of
 peer-to-peer collaborative office applications.
 The aim is to offer a reliable and free alternative to existing solutions such as Google Apps.
 This project is a joint work with the team DaSciM (Data Science and Mining) from the
@@ -109,18 +112,22 @@ the demonstration platform of the team.
 \item Development and integration of an anti-entropy mechanism\cite{sp2-l2-2}
 \end{tightemize}
 \sectionsep
+\end{minipage}
 
+\hfill\begin{minipage}{\dimexpr\textwidth-0.5cm}
 \location{Publications}
 \renewcommand\refname{\vskip -20pt} % Couldn't get this working from the .cls file
 \bibliographystyle{abbrv}
 \bibliography{publications}
 \nocite{*}
+\end{minipage}
 
+\hfill\begin{minipage}{\dimexpr\textwidth-0.5cm}
 \descript{ADT INRIA PLM}
 \href{http://people.irisa.fr/Martin.Quinson/Teaching/PLM/}{\customboldlink{The PLM}}
-is a open-source programming exerciser.
-Developped by Gérald Oster and Martin Quinson, this application proposes to students
-to explore and to learn several concepts of the algorithmics through interactive and graphical exercises.
+is an open-source programming exerciser.
+Developed by Gérald Oster and Martin Quinson, this application proposes to students
+to explore and to learn several concepts of the algorithmic through interactive and graphical exercises.
 \\
 The goal of this project was to enhance this tool in an experimental platform dedicated
 to the teaching of computer science.
@@ -128,10 +135,10 @@ To achieve this, a usage data collecting mechanism was required in order to gene
 This dataset, made available to researchers, allows the realisation of research works on topics
 such as the design of an automatic helping tool which tailors error messages to students.
 A second objective of this project was to port the application, until then released as
-a heavy Java software, into a web application to make it available to the greatest number.
+a desktop Java software, into a web application to make it available to the greatest number.
 \\
 My works focused mainly on the realisation of that port.
-This major change of paradigm introduced several problematics which needed to be adressed.
+This major change of paradigm introduced several issues which needed to be addressed.
 \begin{tightemize}
     \item Implementation and testing of the usage data collecting mechanism
     \item Conception and integration of a distributed architecture ensuring the scalability of the application
@@ -143,18 +150,18 @@ This major change of paradigm introduced several problematics which needed to be
 
 \runsubsection{Intern}
 \descript{| UNIVERSITY OF LORRAINE, COAST TEAM}
-\location{April 2011 – August 2014 | Nancy, France}
+\location{April 2014 – August 2014 | Nancy, France}
 \sectionsep
 
 \hfill\begin{minipage}{\dimexpr\textwidth-0.5cm}
 \descript{Design of a collaborative editing tool}
 Coming from the research on collaborative editing, a new family of data replication and consistency maintenance algorithms
-was recently formalised : the Conflict-Free Replicated Data Types (CRDTs) approach.
+was recently formalised : \acfp{CRDT} approach.
 This new family addresses several unresolved issues from other approaches, especially its scalability.
 \\
 The COAST team proposed a new algorithm from this family : \emph{LogootSplit}.
 \\
-In order to illustrate and highlight the team's works on this new approach,
+In order to illustrate and highlight the work of the team on this new approach,
 my task was to design and implement a new real time collaborative editing tool based on this algorithm.
 \begin{tightemize}
 \item Implementation of \emph{LogootSplit} as a library
@@ -185,7 +192,7 @@ The goal of this internship was to develop a tool to automatically check the res
 
 \section{EDUCATION}
 
-\runsubsection{Diplomed engineer from TELECOM Nancy, French Grande Ecole}
+\runsubsection{Engineering degree in Computer Science at TELECOM Nancy}
 \descript{}
 \location{Equivalent to a Master Degree in Computer Science}
 \location{September 2011 – August 2014 | Nancy, France}
@@ -206,17 +213,7 @@ December 2016       & HCERES Evaluation of the LORIA\\
                     & Inria Industry Meeting "New technologies to protect digital data and computer systems"\\
                     & Visit of a delegation of Technological University presidents from Mexico\\
 November 2016       & Inria Industry Meeting "Interaction with digital objects and services"\\
-October 2016        & Evaluation seminar of INRIA teams working on "Distributed Systems and Middleware"\\
-\end{tabular}
-\sectionsep
-\sectionsep
-
-\runsubsection{Presentations about PLM}
-\descript{}
-\vspace{5pt}
-\begin{tabular}{cl}
-February 2016        & Junior Software Engineers Seminar\\
-March 2015           & Junior Software Engineers Seminar\\
+October 2016        & Evaluation seminar of Inria teams working on "Distributed Systems and Middleware"\\
 \end{tabular}
 \sectionsep
 
