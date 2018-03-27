@@ -111,7 +111,7 @@ However, this is achieved by broadcasting the whole state repeatedly, which may 
 % - But network layer has to deliver operation while complying to their partial order
 
 \emph{Operations-based} \acp{CRDT} define data structures with a set of operations to perform updates
-and a partial order between these operations, usually the causal order.
+and a partial order between these operations, usually the causal order\cite{Prakash:1997:ACO:255495.255508}.
 In addition, operations have to be designed such that concurrent operations commute.
 This allows to propagate local updates by broadcasting corresponding operations to other replicas.
 Operations are delivered according to the defined partial order.
