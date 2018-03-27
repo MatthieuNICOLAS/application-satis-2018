@@ -125,14 +125,13 @@ Nevertheless, it requires the network layer to keep track of the defined partial
 % - Implementations (literature ?) do not provide identifiers with fixed size: depend on number of nodes...
 
 To achieve convergence, \emph{State-based} and \emph{Operations-based} \acp{CRDT} proposed in the literature mostly rely on identifiers to reference updated elements.
-In order to identify an element, identifiers have to be themselves globally unique.
-To do so, element identifiers often include the identifier of the node which generates them as well as a node logical clock.
-Thus, according to how are generated node identifiers, the size of element identifiers increases with the number of nodes.
+To generate such element identifiers, nodes often use their own identifiers as well as logical clocks.
+Thus, according to how are generated node identifiers, the size of element identifiers usually increases with the number of nodes.
 % To be globally unique, element identifiers often include the identifier of the node which generates them.
 % But, since node identifiers grow as new nodes join the system, element identifiers grow proportionally.
 Furthermore, element identifiers have to comply to additional constraints according to the \ac{CRDT}, for example forming a dense set\cite{AndreCollaborateCom2013}.
-In this case, element identifiers size increases according to the number of elements contained in the data structure.
-Thus, the size of element identifiers is usually not bounded.
+In this case, element identifiers' size also increases according to the number of elements contained in the data structure.
+Therefore, the size of element identifiers is usually not bounded.
 
 % First, identifiers are required to be globally unique for the lifetime of the data structure.
 % For example, they may also be used to represent the order between updates.
@@ -143,7 +142,7 @@ Thus, the size of element identifiers is usually not bounded.
 % - How can we provide more efficient identifiers while still complying to their set of constraints?
 % - How can we provide renaming mechanisms reducing the size of identifiers at some point?
 
-Hence, since the size of identifiers is not bounded, the size of metadata attached to each element increases over time.
+Since the size of identifiers is not bounded, the size of metadata attached to each element increases over time.
 It exceeds more and more the size of data itself.
 This impedes the adoption of \acp{CRDT} since nodes have to broadcast and store metadata, causing the application's performances and efficiency to decrease over time.
 
