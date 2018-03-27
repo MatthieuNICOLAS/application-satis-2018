@@ -1,0 +1,221 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Deedy - One Page Two Column Resume
+% LaTeX Template
+% Version 1.1 (30/4/2014)
+%
+% Original author:
+% Debarghya Das (http://debarghyadas.com)
+%
+% Original repository:
+% https://github.com/deedydas/Deedy-Resume
+%
+% IMPORTANT: THIS TEMPLATE NEEDS TO BE COMPILED WITH XeLaTeX
+%
+% This template uses several fonts not included with Windows/Linux by
+% default. If you get compilation errors saying a font is missing, find the line
+% on which the font is used and either change it to a font included with your
+% operating system or comment the line out to use the default font.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% TODO:
+% 1. Integrate biber/bibtex for article citation under publications.
+% 2. Figure out a smoother way for the document to flow onto the next page.
+% 3. Add styling information for a "Projects/Hacks" section.
+% 4. Add location/address information
+% 5. Merge OpenFont and MacFonts as a single sty with options.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% CHANGELOG:
+% v1.1:
+% 1. Fixed several compilation bugs with \renewcommand
+% 2. Got Open-source fonts (Windows/Linux support)
+% 3. Added Last Updated
+% 4. Move Title styling into .sty
+% 5. Commented .sty file.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Known Issues:
+% 1. Overflows onto second page if any column's contents are more than the
+% vertical limit
+% 2. Hacky space on the first bullet point on the second column.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\specialcell}[2][l]{%
+  \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
+\setlength{\parindent}{4em}
+\setlength{\parskip}{1em}
+
+\documentclass[]{deedy-resume-openfont}
+
+\usepackage{ragged2e}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%     LAST UPDATED DATE
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\lastupdated
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%     CONTACT INFORMATION
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\contact
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%     TITLE NAME
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\namesection{Matthieu}{NICOLAS}{ \href{mailto:matthieu.nicolas@inria.fr}{matthieu.nicolas@inria.fr} | +33 6 75 98 34 40 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     EXPERIENCE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Career}
+
+\runsubsection{Research \& Development Software Engineer}
+\descript{| INRIA, COAST TEAM}
+\location{September 2014 – June 2017 | Nancy}
+\sectionsep
+
+\hfill\begin{minipage}{\dimexpr\textwidth-0.5cm}
+\descript{Project OpenPaaS::NG}
+The goal of this project is to design a  open-source entreprise social network providing a suite of
+peer-to-peer collaborative office applications.
+The aim is to offer a reliable and free alternative to existing solutions such as Google Apps.
+This project is a joint work with the team DaSciM (Data Science and Mining) from the
+computer science laboratory from the Ecole Polytechnique, Linagora, XWiki SAS and Nexedi.
+\\
+In this project, the COAST team works on topics such as the interorganisational federation of
+peer-to-peer systems and the securing of communications in this kind of collaboration.
+Furthermore, the team provides its expertise
+on eventually consistent data replication mechanisms in distributed systems.
+\\
+In order to validate them, these works have been integrated in \href{https://www.coedit.re}{\customboldlink{MUTE}},
+the demonstration platform of the team.
+\begin{tightemize}
+\item Maintaining of \emph{LogootSplit}\cite{sp2-l2-9}\cite{sp2-l2-10} implementation
+\item Study of the literature on Conflict-free Replicated Data Types and of their use cases.
+\item Development and integration of an anti-entropy mechanism\cite{sp2-l2-2}
+\end{tightemize}
+\sectionsep
+
+\location{Publications}
+\renewcommand\refname{\vskip -20pt} % Couldn't get this working from the .cls file
+\bibliographystyle{abbrv}
+\bibliography{publications}
+\nocite{*}
+
+\descript{ADT INRIA PLM}
+\href{http://people.irisa.fr/Martin.Quinson/Teaching/PLM/}{\customboldlink{The PLM}}
+is a open-source programming exerciser.
+Developped by Gérald Oster and Martin Quinson, this application proposes to students
+to explore and to learn several concepts of the algorithmics through interactive exercises.
+\\
+The goal of this project was to enhance this tool in an experimental platform dedicated
+to the teaching of computer science.
+To achieve this, a usage data collecting mechanism was required in order to generate a dataset.
+This dataset, made available to researchers, allows the realisation of research works on topics
+such as the design of an automatic helping tool tailoring error messages to students.
+A second objective of this project was to port the application, until then released as
+a heavy Java software, into a web application to make it available to the greatest number.
+\\
+My works focused mainly on the realisation of that port.
+This major change of paradigm introduced several problematics which needed to be adressed.
+\begin{tightemize}
+    \item Implementation and testing of the usage data collecting mechanism
+    \item Conception and integration of a distributed architecture ensuring the scalability of the application
+    \item Isolation of the execution of student code
+    \item Deployment and monitoring of a multi-components application
+\end{tightemize}
+\sectionsep\xdef\tpd{\the\prevdepth}
+\end{minipage}
+
+\runsubsection{Élève-ingénieur}
+\descript{| TELECOM Nancy}
+\location{Diplôme d'ingénieur TELECOM Nancy, spécialité Ingénierie du Logiciel }
+\location{Septembre 2011 – Août 2014 | Nancy}
+\sectionsep
+
+\hfill\begin{minipage}{\dimexpr\textwidth-0.5cm}
+\descript{Realisation d’une plateforme d’edition collaborative | LORIA, equipe COAST}
+\location{Stage | Avril 2014 – Août 2014 | Nancy}
+Issue des travaux sur l'édition collaborative, une nouvelle famille d'algorithmes de réplication des données
+et de maintien de la cohérence à terme est apparue récemment : l'approche CRDT (Conflict-free Replicated Data Type).
+Cette nouvelle famille d'algorithme répond à plusieurs des limites constatées chez les autres approches existantes,
+notamment concernant la capacité de passage à l'échelle.
+\\
+L'équipe SCORE, travaillant sur ce domaine de recherche, a proposé un nouvel algorithme de cette famille : \emph{LogootSplit}.
+\\
+Afin d'illustrer et de mettre en valeur les travaux de l'équipe sur cette approche,
+ma tâche a été de concevoir et de développer un éditeur collaboratif temps réel se basant sur cet algorithme.
+\begin{tightemize}
+\item Implémentation sous forme de librairie de \emph{LogootSplit}
+\item Conception et développement de \href{https://www.coedit.re}{\customboldlink{MUTE}}, un éditeur collaboratif temps réel en ligne reposant sur cette librairie
+\end{tightemize}
+\sectionsep\xdef\tpd{\the\prevdepth}
+\end{minipage}
+
+\runsubsection{Élève-technicien}
+\descript{| IUT de Metz}
+\location{DUT Informatique}
+\location{Septembre 2009 – Juin 2011 | Metz}
+\sectionsep
+
+\hfill\begin{minipage}{\dimexpr\textwidth-0.5cm}
+\descript{Developpement d’un outil d'analyse d'algorithmes d'edition collaborative | École Polytechnique de Montreal}
+\location{Stage | Avril 2011 – Juin 2011 | Montréal, Canada}
+Les outils d'édition collaborative existants reposent majoritairement sur une famille spécifique d'algorithmes
+pour assurer le maintien de la cohérence à terme : les transformées opérationnelles.
+\\
+Deux propriétés de convergence \emph{TP1} et \emph{TP2} existent et permettent de garantir la correction de ces algorithmes.
+\\
+L'objectif de ce stage était de réaliser un outil permettant de vérifier automatiquement le respect de ces propriétés pour un algorithme donné.
+\begin{tightemize}
+\item Implémentation de plusieurs algorithmes issus de la famille des transformées opérationnelles
+\item Développement de l'outil permettant de vérifier les propriétés de convergences \emph{TP1} et \emph{TP2} pour les algorithmes implémentés.
+\end{tightemize}
+\sectionsep\xdef\tpd{\the\prevdepth}
+\end{minipage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     COMMUNICATION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Communication}
+
+\runsubsection{Presentations on MUTE}
+\descript{}
+\vspace{5pt}
+\begin{tabular}{cp{150mm}}
+August - September 2017    & ECSCW 2017\\
+December 2016       & HCERES Evaluation of the LORIA\\
+                    & Inria Industry Meeting "New technologies to protect digital data and computer systems"\\
+                    & Visit of a delegation of Technological University presidents from Mexico\\
+November 2016       & Inria Industry Meeting "Interaction with digital objects and services"\\
+October 2016        & Evaluation seminar of INRIA teams working on "Distributed Systems and Middleware"\\
+\end{tabular}
+\sectionsep
+\sectionsep
+
+\runsubsection{Presentations on PLM}
+\descript{}
+\vspace{5pt}
+\begin{tabular}{cl}
+February 2016        & Junior Software Engineers Seminar\\
+March 2015           & Junior Software Engineers Seminar\\
+\end{tabular}
+\sectionsep
+
+\hfill
+\end{document}
