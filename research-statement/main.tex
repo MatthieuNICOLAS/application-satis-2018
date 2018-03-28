@@ -5,6 +5,7 @@
 \usepackage[utf8]{inputenc}
 
 \usepackage{acronym} % \ac[p], \acl[p], \acs[p], \acf[p]
+\usepackage[margin=1in]{geometry}
 \usepackage{subcaption}
 \captionsetup{subrefformat=parens}
 
@@ -31,6 +32,8 @@
 \usepackage{paralist}
 \usepackage{booktabs}
 
+\usepackage[numbers]{natbib}
+
 % Acronyms
 % --------
 \acrodef{CRDT}[CRDT]{Conflict-free Replicated Data Type}
@@ -39,7 +42,7 @@
 % Meta-Data
 % ---------
 \title{Efficient (re)naming in \acp{CRDT}}
-\author{Matthieu Nicolas, Gérald Oster and Olivier Perrin}
+\author{Matthieu Nicolas \\ matthieu.nicolas@inria.fr}
 % \affiliation{Inria, F-54600,
 %   Université de Lorraine, LORIA, F-54506,
 %   CNRS, F-54506}
@@ -66,11 +69,11 @@
 
 In order to serve an ever-growing number of users and provide an increasing volume of data,
 large scale systems such as data stores\cite{Antidote} or collaborative editing tools\cite{nicolas:hal-01655438} have to adopt a distributed architecture.
-However, as stated by the CAP theorem\cite{BrewerPoDC2000}, such systems cannot ensure both strong consistency and high availability.
-As a result, the literature and companies increasingly adopt the optimistic replication model known as eventual consistency to replicate data among nodes.
+However, as stated by the CAP theorem\cite{BrewerPoDC2000}, such systems cannot ensure both strong consistency and high availability in case of network partitions.
+As a result, literature and companies increasingly adopt the optimistic replication model known as eventual consistency\cite{Terry:1995:MUC:224057.224070} to replicate data among nodes.
 This consistency model allows replicas to temporarily diverge to be able to ensure high availability, even in case of network partition.
-Each node owns a copy of the data and can edit it, before propagating the updates to others.
-A conflict resolution mechanism is however required to handle updates generated in parallel by different replicas.
+Each node owns a copy of the data and can edit it, before propagating updates to others.
+A conflict resolution mechanism is however required to handle updates generated in parallel on different replicas.
 
 % CRDT
 % - Mimic behavior of traditional data structures
@@ -80,11 +83,11 @@ A conflict resolution mechanism is however required to handle updates generated 
 % - Comes in several flavors: State-based and Operation-based
 
 An approach which gains in popularity since a few years proposes to define \acfp{CRDT}\cite{shapiro:inria-00555588}.
-These data structures behave as traditional ones, like the \emph{Set} or the \emph{Sequence} data structures, but are designed for a distributed usage.
-Their specification ensures that concurrent updates are resolved deterministically, without any kind of agreement, and that replicas eventually converge after observing all updates,
+These data structures behave as traditional ones, like \emph{Set} or \emph{Sequence} data structures, but are designed for a distributed usage.
+Their specification ensures that concurrent updates are resolved deterministically, without requiring any kind of agreement, and that replicas eventually converge immediately after observing some set of updates,
 thus achieving \emph{Strong Eventual Consistency}\cite{ShapiroSSS2011}.
 
-In \cite{shapiro:inria-00555588}, Shapiro et al present two designs of \acp{CRDT} :
+Shapiro et al\cite{shapiro:inria-00555588} present two designs of \acp{CRDT} :
 \emph{State-based} \acp{CRDT} and \emph{Operations-based} \acp{CRDT}.
 
 % State-based
@@ -94,12 +97,12 @@ In \cite{shapiro:inria-00555588}, Shapiro et al present two designs of \acp{CRDT
 % - No requirements for the network layer
 % - But bandwith-consuming
 
-\emph{State-based} \acp{CRDT} define data structures with monotonically increasing states with idempotent and commutative merge functions.
+\emph{State-based} \acp{CRDT} define data structures whose states monotonically increase using idempotent and commutative merge functions.
 This allows one replica to share its local updates by broadcasting its state to others.
 Upon the reception of the state of another replica, a node is able to update its own state by merging them,
 regardless of its concurrent updates.
-Thanks to the properties of the defined state and merge function, states can be missed or delivered multiple times :
-as long as the most recent state of each replica is successfully broadcast to others once, each node will converge.
+Thanks to the properties of the defined state and merge function, states can be missed or delivered multiple times.
+As long as the most recent state of each replica is successfully broadcast to others once, each node will converge.
 Thus, no assumptions are made on the network layer.
 However, this is achieved by broadcasting the whole state repeatedly, which may be inefficient according to the size of the data structure.
 
@@ -111,12 +114,12 @@ However, this is achieved by broadcasting the whole state repeatedly, which may 
 % - But network layer has to deliver operation while complying to their partial order
 
 \emph{Operations-based} \acp{CRDT} define data structures with a set of operations to perform updates
-and a partial order between these operations, usually the causal order\cite{Prakash:1997:ACO:255495.255508}.
-In addition, operations have to be designed such that concurrent operations commute.
+and a partial order between these operations, usually a causal order\cite{Prakash:1997:ACO:255495.255508}.
+In addition, operations have to be designed such that concurrent one commute.
 This allows to propagate local updates by broadcasting corresponding operations to other replicas.
 Operations are delivered according to the defined partial order.
 Upon delivery of an operation, a replica updates its state by applying it.
-In comparison to \emph{State-based} \acp{CRDT}, this solution achieves better performances, especially regarding the bandwidth consumption.
+In comparison to \emph{State-based} \acp{CRDT}, this solution achieves better performance, especially regarding the bandwidth consumption.
 Nevertheless, it requires the network layer to keep track of the defined partial order, which may be a complex and costly task.
 
 % Constraints on identifiers
@@ -124,12 +127,12 @@ Nevertheless, it requires the network layer to keep track of the defined partial
 % - Several constraints may exist on identifiers: globally unique, belonging to a dense set
 % - Implementations (literature ?) do not provide identifiers with fixed size: depend on number of nodes...
 
-To achieve convergence, \emph{State-based} and \emph{Operations-based} \acp{CRDT} proposed in the literature mostly rely on identifiers to reference updated elements.
+To achieve convergence, \emph{State-based} and \emph{Operations-based} \acp{CRDT} proposed in the literature mostly rely on unique identifiers to reference updated elements.
 To generate such element identifiers, nodes often use their own identifiers as well as logical clocks.
-Thus, according to how are generated node identifiers, the size of element identifiers usually increases with the number of nodes.
+Thus, regarding to how node identifiers are generated, the size of element identifiers usually increases with the number of nodes.
 % To be globally unique, element identifiers often include the identifier of the node which generates them.
 % But, since node identifiers grow as new nodes join the system, element identifiers grow proportionally.
-Furthermore, element identifiers have to comply to additional constraints according to the \ac{CRDT}, for example forming a dense set\cite{AndreCollaborateCom2013}.
+Furthermore, element identifiers have to comply to additional constraints according to the \ac{CRDT}, for example forming a dense set in case of a sequence data structure\cite{AndreCollaborateCom2013}.
 In this case, element identifiers' size also increases according to the number of elements contained in the data structure.
 Therefore, the size of element identifiers is usually not bounded.
 
@@ -144,7 +147,7 @@ Therefore, the size of element identifiers is usually not bounded.
 
 Since the size of identifiers is not bounded, the size of metadata attached to each element increases over time.
 It exceeds more and more the size of data itself.
-This impedes the adoption of \acp{CRDT} since nodes have to broadcast and store metadata, causing the application's performances and efficiency to decrease over time.
+This impedes the adoption of \acp{CRDT} since nodes have to broadcast and store metadata, causing the application's performance and efficiency to decrease over time.
 
 This PhD aims to address this issue by
 \begin{enumerate*}
@@ -158,7 +161,7 @@ This PhD aims to address this issue by
 %   - How are these constraints addressed?
 % - Can we instead provide \acp{CRDT} not relying on identifiers?
 
-\bibliographystyle{plain}
+\bibliographystyle{plainnat}
 \bibliography{ref-selected}
 
 \end{document}
