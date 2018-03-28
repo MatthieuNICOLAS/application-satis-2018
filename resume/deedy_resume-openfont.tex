@@ -49,6 +49,7 @@
 
 \documentclass[]{deedy-resume-openfont}
 
+\usepackage[numbers]{natbib}
 \usepackage{ragged2e}
 \usepackage{acronym} % \ac[p], \acl[p], \acs[p], \acf[p]
 
@@ -78,7 +79,7 @@
 %     TITLE NAME
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\namesection{Matthieu}{NICOLAS}{ \href{mailto:matthieu.nicolas@inria.fr}{matthieu.nicolas@inria.fr} | +33 6 75 98 34 40 }
+\namesection{Matthieu}{NICOLAS}{ \href{mailto:matthieu.nicolas@inria.fr}{matthieu.nicolas@inria.fr} }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %     EXPERIENCE
@@ -87,14 +88,14 @@
 \section{Career}
 
 \runsubsection{PhD Student}
-\descript{| UNIVERSITY OF LORRAINE, COAST TEAM}
+\descript{| INRIA, COAST TEAM}
 \location{October 2017 - Today | Nancy, France}
 \sectionsep
 
 \hfill\begin{minipage}{\dimexpr\textwidth-0.5cm}
 \descript{EFFICIENT (RE)NAMING IN CONFLICT-FREE REPLICATED DATA TYPES}
 
-\acp{CRDT} are data structures behaving as traditional ones, like the \emph{Set} or the \emph{Sequence} data structures, but designed for a distributed usage.
+\acp{CRDT} are data structures behaving as traditional ones, like \emph{Set} or \emph{Sequence} data structures, but designed for a distributed usage.
 They are used in order to build large scale distributed systems adopting the optimistic replication model known as eventual consistency to replicate data among nodes.
 With this model, each node owning a copy of the data can edit it without any kind of coordination with other nodes.
 They then propagate the updates to others.
@@ -134,11 +135,11 @@ Furthermore, the team provides its expertise
 on eventually consistent data replication mechanisms in distributed systems.
 \\
 In order to validate them, these works have been integrated in \href{https://www.coedit.re}{\customboldlink{MUTE}},
-the demonstration platform of the team.
+peer-to-peer web based realtime collaboration editor.
 \begin{tightemize}
-\item Maintaining of \emph{LogootSplit}\cite{sp2-l2-9}\cite{sp2-l2-10} implementation
+\item Maintaining of \emph{LogootSplit}\citep{sp2-l2-9}\citep{sp2-l2-10} implementation
 \item Study of the literature on Conflict-free Replicated Data Types and of their use cases.
-\item Development and integration of an anti-entropy mechanism\cite{sp2-l2-2}
+\item Development and integration of an anti-entropy mechanism\citep{sp2-l2-2}
 \end{tightemize}
 \sectionsep
 \end{minipage}
@@ -146,7 +147,7 @@ the demonstration platform of the team.
 \hfill\begin{minipage}{\dimexpr\textwidth-0.5cm}
 \location{Publications}
 \renewcommand\refname{\vskip -20pt} % Couldn't get this working from the .cls file
-\bibliographystyle{abbrv}
+\bibliographystyle{abbrvnat}
 \bibliography{publications}
 \nocite{*}
 \end{minipage}
@@ -183,7 +184,7 @@ This major change of paradigm introduced several issues which needed to be addre
 \sectionsep
 
 \hfill\begin{minipage}{\dimexpr\textwidth-0.5cm}
-\descript{Design of a collaborative editing tool}
+\descript{Design of a web based realtime collaborative editing tool}
 Coming from the research on collaborative editing, a new family of data replication and consistency maintenance algorithms
 was recently formalised : \acfp{CRDT} approach.
 This new family addresses several unresolved issues from other approaches, especially its scalability.
@@ -221,9 +222,9 @@ The goal of this internship was to develop a tool to automatically check the res
 
 \section{EDUCATION}
 
-\runsubsection{Engineering degree in Computer Science at TELECOM Nancy}
+\runsubsection{Master Degree in Computer Science}
 \descript{}
-\location{Equivalent to a Master Degree in Computer Science}
+\location{Engineering degree in Computer Science at TELECOM Nancy}
 \location{September 2011 – August 2014 | Nancy, France}
 \sectionsep
 
@@ -237,7 +238,7 @@ The goal of this internship was to develop a tool to automatically check the res
 \descript{}
 \vspace{5pt}
 \begin{tabular}{cp{150mm}}
-August 2017         & ECSCW 2017\\
+August 2017         & ECSCW 2017 : MUTE : A Peer-to-Peer Web-based Real-time Collaborative Editor.\\
 December 2016       & HCERES Evaluation of the LORIA\\
                     & Inria Industry Meeting "New technologies to protect digital data and computer systems"\\
                     & Visit of a delegation of Technological University presidents from Mexico\\
