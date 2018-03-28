@@ -149,11 +149,13 @@ Since the size of identifiers is not bounded, the size of metadata attached to e
 It exceeds more and more the size of data itself.
 This impedes the adoption of \acp{CRDT} since nodes have to broadcast and store metadata, causing the application's performance and efficiency to decrease over time.
 
-This PhD aims to address this issue by
-\begin{enumerate*}
-  \item proposing more efficient specifications of identifiers according to their set of constraints,
-  \item proposing mechanisms to rename identifiers to reduce their size.
-\end{enumerate*}
+This PhD aims to address this issue.
+A first approach is to study identifiers proposed in the literature to list existing constraints on
+identifiers and their consequences on identifiers generation
+in order to propose more efficient specifications of identifiers.
+A second approach is to study this issue as a particular case of the renaming problem
+and to propose mechanisms to rename identifiers in order to reduce their size,
+still without requiring any kind of agreement between nodes.
 
 % Next steps
 % - Look for a survey (or build one) on \ac{CRDT} identifiers
